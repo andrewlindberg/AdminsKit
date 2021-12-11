@@ -1,0 +1,23 @@
+[en]
+INVIS_ENABLED  = ^4[^3INVIS SPEC^4]^1 You are now ^4invisible^1.
+INVIS_DISABLED = ^4[^3INVIS SPEC^4]^1 You are now ^4visible^1.
+NOT_SPECTATOR  = ^4[^3INVIS SPEC^4]^1 You must be the ^4spectator^1 before you become invisible.
+BE_QUIET       = ^4[^3INVIS SPEC^4]^1 You are an invisible spectator. It's better to be quiet!
+
+[ru]
+INVIS_ENABLED  = ^4[^3INVIS SPEC^4]^1 Игроки ^4не видят^1 Вас в таблице счета.
+INVIS_DISABLED = ^4[^3INVIS SPEC^4]^1 Игроки ^4видят^1 Вас в таблице счета.
+NOT_SPECTATOR  = ^4[^3INVIS SPEC^4]^1 Вы должны перейти за команду ^4зрителей^1, прежде чем стать невидимым.
+BE_QUIET       = ^4[^3INVIS SPEC^4]^1 Вы невидимый зритель. Лучше ничего не писать в чат!
+
+[pl]
+INVIS_ENABLED  = ^4[^3NIEWIDKA^4]^1 Jestes teraz ^4niewidzialny^1.
+INVIS_DISABLED = ^4[^3NIEWIDKA^4]^1 Jestes teraz ^4widzialny^1.
+NOT_SPECTATOR  = ^4[^NIEWIDKA^4]^1 Musisz byc na ^4SPECT^1 by zostac niewidzialnym.
+BE_QUIET       = ^4[^3NIEWIDKA^4]^1 Jestes niewidzialny. Lepiej badz cicho!
+
+[de]
+INVIS_ENABLED  = ^4[^3SPEC AN^4]^1 Du bist jetzt r^4unsichtbar^1.
+INVIS_DISABLED = ^4[^3SPEC AUS^4]^1 Du bist jetzt wieder ^4sichtbar^1.
+NOT_SPECTATOR  = ^4[^3SPEC^4]^1 Du musst erst ^4SPEC^1 joinen bevor Du unsichtbar sein kannst
+BE_QUIET       = ^4[^3SPEC^4]^1 Du bist unsichtbar - mach Dich nicht bemerkbar!

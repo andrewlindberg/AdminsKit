@@ -1,0 +1,35 @@
+#include "winres.h"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     @INFO_VERSION_MAJOR@,@INFO_VERSION_MINOR@,@INFO_VERSION_PATCH@,0
+PRODUCTVERSION  @INFO_VERSION_MAJOR@,@INFO_VERSION_MINOR@,@INFO_VERSION_PATCH@,0
+FILEFLAGSMASK   0x3fL
+#ifdef _DEBUG
+FILEFLAGS       0x1L
+#else
+FILEFLAGS       0x0L
+#endif
+FILEOS          0x40004L
+FILETYPE        0x2L
+FILESUBTYPE     0x0L
+
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004b0"
+        BEGIN
+            VALUE "CompanyName", "@INFO_PROJECT_AUTHOR@"
+            VALUE "FileDescription", "@CMAKE_PROJECT_DESCRIPTION@"
+            VALUE "FileVersion", "@CMAKE_PROJECT_VERSION@"
+            VALUE "InternalName", "@PROJECT_NAME@@BINARY_NAME_SUFFIX_WINDOWS@"
+            VALUE "LegalCopyright", "© @INFO_PROJECT_AUTHOR@"
+            VALUE "OriginalFilename", "@PROJECT_NAME@@BINARY_NAME_SUFFIX_WINDOWS@"
+            VALUE "ProductName", "@INFO_PROJECT_NAME@"
+            VALUE "ProductVersion", "@CMAKE_PROJECT_VERSION@"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 1200
+    END
+END

@@ -1,0 +1,15 @@
+[submodule "libs/cssdk"]
+	path = libs/cssdk
+	url = https://gitlab.com/goldsrc-sdk/cssdk.git
+[submodule "libs/metamod"]
+	path = libs/metamod
+	url = https://gitlab.com/goldsrc-sdk/metamod.git
+[submodule "libs/amxx"]
+	path = libs/amxx
+	url = https://gitlab.com/goldsrc-sdk/amxx.git
+[submodule "libs/core"]
+	path = libs/core
+	url = https://gitlab.com/goldsrc-sdk/core.git
+[submodule "libs/mhooks"]
+	path = libs/mhooks
+	url = https://gitlab.com/goldsrc-sdk/mhooks.git

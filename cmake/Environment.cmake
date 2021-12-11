@@ -1,0 +1,47 @@
+#-------------------------------------------------------------------------------------------
+# CMake environment configuration
+#-------------------------------------------------------------------------------------------
+
+set(CMAKE_CONFIGURATION_TYPES "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+set(OUTPUT_DIR "${CMAKE_SOURCE_DIR}/bin/${CMAKE_CXX_COMPILER_ID}-${CMAKE_CXX_COMPILER_VERSION}-${CMAKE_BUILD_TYPE}")
+
+set(CMAKE_PDB_OUTPUT_DIRECTORY "${OUTPUT_DIR}")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${OUTPUT_DIR}")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${OUTPUT_DIR}")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${OUTPUT_DIR}")
+
+set(CMAKE_C_FLAGS "")
+set(CMAKE_CXX_FLAGS "")
+set(CMAKE_EXE_LINKER_FLAGS "")
+set(CMAKE_MODULE_LINKER_FLAGS "")
+set(CMAKE_SHARED_LINKER_FLAGS "")
+set(CMAKE_STATIC_LINKER_FLAGS "")
+
+foreach(config_type ${CMAKE_CONFIGURATION_TYPES})
+    string(TOUPPER "${config_type}" config_type)
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${config_type} "${OUTPUT_DIR}")
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${config_type} "${OUTPUT_DIR}")
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${config_type} "${OUTPUT_DIR}")
+    set(CMAKE_PDB_OUTPUT_DIRECTORY_${config_type} "${OUTPUT_DIR}")
+    set(CMAKE_C_FLAGS_${config_type} "")
+    set(CMAKE_CXX_FLAGS_${config_type} "")
+    set(CMAKE_EXE_LINKER_FLAGS_${config_type} "")
+    set(CMAKE_MODULE_LINKER_FLAGS_${config_type} "")
+    set(CMAKE_SHARED_LINKER_FLAGS_${config_type} "")
+    set(CMAKE_STATIC_LINKER_FLAGS_${config_type} "")
+endforeach()
+
+set(CMAKE_C_VISIBILITY_PRESET hidden)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_OPTIMIZE_DEPENDENCIES ON)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_DEBUG OFF)
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE ON)
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_MINSIZEREL ON)
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELWITHDEBINFO ON)
+
+if(APPLE)
+    cmake_policy(SET CMP0025 NEW)
+endif()
