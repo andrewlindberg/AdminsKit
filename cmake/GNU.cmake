@@ -61,7 +61,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
         -g0 -fno-stack-protector
     >
 
-    -fno-threadsafe-statics -ffunction-sections -fdata-sections
+    $<$<COMPILE_LANGUAGE:CXX>:-fno-threadsafe-statics> -ffunction-sections -fdata-sections
 )
 
 # Optional flags
