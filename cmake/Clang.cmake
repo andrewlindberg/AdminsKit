@@ -26,33 +26,6 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 
 # Compiler flags
 target_compile_options(${PROJECT_NAME} PRIVATE
-    -m32 -march=x86-64 -mtune=generic -mmmx -msse -msse2 -msse3 -mssse3 -mfpmath=sse
-
-    # Build type Debug
-    $<$<CONFIG:Debug>:
-        -Og -ggdb
-    >
-
-    # Build type Release
-    $<$<CONFIG:Release>:
-        -O3
-    >
-
-    # Build type MinSizeRel
-    $<$<CONFIG:MinSizeRel>:
-        -Os
-    >
-
-    # Build type RelWithDebInfo
-    $<$<CONFIG:RelWithDebInfo>:
-        -O2 -ggdb
-    >
-
-    # Build type Release, MinSizeRel
-    $<$<OR:$<CONFIG:Release>,$<CONFIG:MinSizeRel>>:
-        -g0 -fno-stack-protector
-    >
-
     $<$<COMPILE_LANGUAGE:CXX>:-fno-threadsafe-statics> -ffunction-sections -fdata-sections
 )
 
@@ -71,7 +44,7 @@ endif()
 
 # Linker flags
 if(LINKER_LLD)
-    target_link_options(${PROJECT_NAME} PRIVATE -fuse-ld=lld -m32
+    target_link_options(${PROJECT_NAME} PRIVATE -fuse-ld=lld
         # Common
         -Wl,-O2
         -Wl,--icf=safe
@@ -105,7 +78,7 @@ if(LINKER_LLD)
         #-Wl,--print-icf-sections
     )
 else()
-    target_link_options(${PROJECT_NAME} PRIVATE -m32
+    target_link_options(${PROJECT_NAME} PRIVATE
         # Warnings
         -Wl,--warn-common
         -Wl,--warn-alternate-em

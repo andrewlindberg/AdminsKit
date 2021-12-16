@@ -4,15 +4,13 @@
 
 # Run clang-tidy
 if(RUN_CLANG_TIDY)
-    if(NOT WIN32)
-        find_program(CLANG_TIDY_PROGRAM NAMES clang-tidy)
+    find_program(CLANG_TIDY_PROGRAM NAMES clang-tidy)
 
-        if(CLANG_TIDY_PROGRAM)
-            set(CMAKE_C_CLANG_TIDY ${CLANG_TIDY_PROGRAM})
-            set(CMAKE_CXX_CLANG_TIDY ${CLANG_TIDY_PROGRAM})
-        else()
-            message(WARNING "The RUN_CLANG_TIDY option is ON but clang-tidy program is not found.")
-        endif()
+    if(CLANG_TIDY_PROGRAM)
+        set(CMAKE_C_CLANG_TIDY ${CLANG_TIDY_PROGRAM})
+        set(CMAKE_CXX_CLANG_TIDY ${CLANG_TIDY_PROGRAM})
+    else()
+        message(WARNING "The RUN_CLANG_TIDY option is ON but clang-tidy program is not found.")
     endif()
 endif()
 

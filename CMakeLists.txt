@@ -16,7 +16,7 @@
 #-------------------------------------------------------------------------------------------
 
 # Minimum required version of CMake for a project
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.21)
 
 #-------------------------------------------------------------------------------------------
 # Project configuration
@@ -81,10 +81,6 @@ option(LINK_LIB_STDCPP         "Static linking with the libstdc++ library."     
 
 include(Environment)
 include(CodeAnalysis)
-include(CheckIPOSupported)
-
-# Fatal error if IPO is not supported
-check_ipo_supported()
 
 #-------------------------------------------------------------------------------------------
 # Project build setup
@@ -130,7 +126,7 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     # C
-    C_STANDARD 11
+    C_STANDARD 17
     C_STANDARD_REQUIRED ON
     C_VISIBILITY_PRESET hidden
 

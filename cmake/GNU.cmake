@@ -34,34 +34,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 
 # Compiler flags
 target_compile_options(${PROJECT_NAME} PRIVATE
-    -pipe -m32 -march=x86-64 -mtune=generic -mmmx -msse -msse2 -msse3 -mssse3 -mfpmath=sse
-
-    # Build type Debug
-    $<$<CONFIG:Debug>:
-        -Og -ggdb
-    >
-
-    # Build type Release
-    $<$<CONFIG:Release>:
-        -O2
-    >
-
-    # Build type MinSizeRel
-    $<$<CONFIG:MinSizeRel>:
-        -Os
-    >
-
-    # Build type RelWithDebInfo
-    $<$<CONFIG:RelWithDebInfo>:
-        -O2 -ggdb
-    >
-
-    # Build type Release, MinSizeRel
-    $<$<OR:$<CONFIG:Release>,$<CONFIG:MinSizeRel>>:
-        -g0 -fno-stack-protector
-    >
-
-    $<$<COMPILE_LANGUAGE:CXX>:-fno-threadsafe-statics> -ffunction-sections -fdata-sections
+    -pipe $<$<COMPILE_LANGUAGE:CXX>:-fno-threadsafe-statics> -ffunction-sections -fdata-sections
 )
 
 # Optional flags
@@ -83,7 +56,7 @@ endif()
 
 # Linker flags
 if(LINKER_GOLD)
-    target_link_options(${PROJECT_NAME} PRIVATE -fuse-ld=gold -m32
+    target_link_options(${PROJECT_NAME} PRIVATE -fuse-ld=gold
         # Warnings
         -Wl,--warn-common
         -Wl,--warn-execstack
@@ -123,7 +96,7 @@ if(LINKER_GOLD)
         #-Wl,--print-icf-sections
     )
 else()
-    target_link_options(${PROJECT_NAME} PRIVATE -m32
+    target_link_options(${PROJECT_NAME} PRIVATE
         # Warnings
         -Wl,--warn-common
         -Wl,--warn-alternate-em

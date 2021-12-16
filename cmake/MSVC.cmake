@@ -8,7 +8,7 @@ set(WARNINGS_DISABLE 4706;)
 target_compile_options(${PROJECT_NAME} PRIVATE
     # Common
     /W4                 # Warning level
-    /std:c17            # Specify C language standard version
+    #/std:c17           # Specify C language standard version
     /arch:SSE2          # Minimum CPU architecture
     /fp:precise         # Specify floating-point behavior
     /diagnostics:column # Compiler diagnostic options
@@ -34,7 +34,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
         /RTC1           # Run-time error checks
         /GS             # Buffer security check
         /sdl            # Additional security checks
-        /ZI             # Debug information format
+        /Zi             # Debug information format
     >
 
     # Build type Release, MinSizeRel, RelWithDebInfo

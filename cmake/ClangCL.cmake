@@ -5,7 +5,7 @@
 target_compile_options(${PROJECT_NAME} PRIVATE
     # Common
     /W4                   # Warning level
-    /std:c17              # Specify C language standard version
+    #/std:c17             # Specify C language standard version
     #/arch:SSE2           # Minimum CPU architecture
     /fp:precise           # Specify floating-point behavior
     /diagnostics:column   # Compiler diagnostic options
@@ -37,7 +37,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
         /Oy               # Frame-pointer omission
         /Oi               # Generate intrinsic functions
         /Ot               # Favor fast code
-        /GL               # Whole program optimization
+        #/GL              # Whole program optimization
         /GS-              # Buffer security check
         /fp:except-       # Enable floating-point exceptions
         /Gw               # Optimize global data
@@ -121,7 +121,7 @@ endif()
 
 if(ENABLE_LTO)
     target_compile_options(${PROJECT_NAME} PRIVATE
-        -flto
+        -flto=full
         -fwhole-program-vtables
         -fvirtual-function-elimination
     )
@@ -156,7 +156,7 @@ target_link_options(${PROJECT_NAME} PRIVATE
     $<$<OR:$<CONFIG:Release>,$<CONFIG:MinSizeRel>,$<CONFIG:RelWithDebInfo>>:
         /OPT:REF          # Eliminates functions and data that are never referenced
         /OPT:ICF          # Enable COMDAT folding
-        /LTCG             # Link-time code generation
+        #/LTCG            # Link-time code generation
         /INCREMENTAL:NO   # Enable incremental linking
     >
 
@@ -167,7 +167,7 @@ target_link_options(${PROJECT_NAME} PRIVATE
 
     # Build type RelWithDebInfo
     $<$<CONFIG:RelWithDebInfo>:
-        /DEBUG:FASTLINK   # Generate debug info
+        /DEBUG:FULL       # Generate debug info
     >
 )
 
