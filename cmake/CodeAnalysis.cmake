@@ -1,3 +1,8 @@
+include(PVS-Studio)
+include(ProcessorCount)
+
+ProcessorCount(NCORES)
+
 #-------------------------------------------------------------------------------------------
 # Clang-Tidy
 #-------------------------------------------------------------------------------------------
@@ -23,9 +28,6 @@ if(RUN_CPPCHECK AND NOT WIN32) # TODO: Add windows support
     find_program(CMAKE_C_CPPCHECK NAMES cppcheck)
 
     if(CMAKE_C_CPPCHECK)
-        include(ProcessorCount)
-        ProcessorCount(NCORES)
-
         if(UNIX)
             set(PLATFORM_TYPE "unix32")
         else()
@@ -52,4 +54,23 @@ if(RUN_CPPCHECK AND NOT WIN32) # TODO: Add windows support
     else()
         message(WARNING "The RUN_CPPCHECK option is ON but cppcheck program is not found.")
     endif()
+endif()
+
+#-------------------------------------------------------------------------------------------
+# PVS-Studio
+#-------------------------------------------------------------------------------------------
+
+# Run PVS-Studio
+if(RUN_PVS_STUDIO)
+    pvs_studio_add_target(
+        TARGET pvs.analysis
+        ALL
+        COMPILE_COMMANDS
+        OUTPUT
+        HIDE_HELP
+        MODE GA:1,2,3 OP:1,2,3
+        CONFIG "${CMAKE_SOURCE_DIR}/PVS-Studio.cfg"
+        ARGS --threads ${NCORES} --ignore-ccache --exclude-path "${CMAKE_SOURCE_DIR}/libs"
+        CONVERTER_ARGS --excludedCodes V1042
+    )
 endif()

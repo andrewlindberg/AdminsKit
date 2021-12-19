@@ -51,6 +51,7 @@ project(${PROJECT_NAME}
 option(ENABLE_EXCEPTIONS       "Enable exception handling table generation."       OFF)
 option(ENABLE_RTTI             "Enable RTTI support."                              OFF)
 option(RUN_CLANG_TIDY          "Run clang-tidy checks."                            OFF)
+option(RUN_PVS_STUDIO          "Run PVS-Studio analyzer."                          OFF)
 
 # MSVC Options
 option(MSVC_CODE_ANALYSIS      "Enable MSVC code analysis."                        OFF)

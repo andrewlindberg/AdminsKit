@@ -22,6 +22,7 @@
                 "ENABLE_RTTI": "OFF",
                 "ENABLE_EXCEPTIONS": "OFF",
                 "RUN_CLANG_TIDY": "OFF",
+                "RUN_PVS_STUDIO": "OFF",
                 "CSSDK_REHLDS_FIXES": "ON",
                 "CSSDK_REGAMEDLL_FIXES": "ON",
                 "CSSDK_REGAMEDLL_API": "ON",
@@ -85,6 +86,7 @@
             "inherits": "_win32-msvc",
             "cacheVariables": {
                 "RUN_CLANG_TIDY": "ON",
+                "RUN_PVS_STUDIO": "ON",
                 "MSVC_CODE_ANALYSIS": "ON",
                 "CMAKE_BUILD_TYPE": "Debug"
             }
@@ -135,6 +137,7 @@
             "inherits": "_win32-clang",
             "cacheVariables": {
                 "RUN_CLANG_TIDY": "ON",
+                "RUN_PVS_STUDIO": "OFF",
                 "CMAKE_BUILD_TYPE": "Debug"
             }
         },
@@ -210,6 +213,7 @@
                 "LINKER_GOLD": "OFF",
                 "GCC_ANALYZER": "ON",
                 "RUN_CPPCHECK": "ON",
+                "RUN_PVS_STUDIO": "ON",
                 "CMAKE_BUILD_TYPE": "Debug"
             }
         },
@@ -241,7 +245,6 @@
             "name": "linux-clang-relwithdebinfo",
             "inherits": "_linux-clang",
             "cacheVariables": {
-                "RUN_CLANG_TIDY": "ON",
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo"
             }
         },
@@ -251,6 +254,7 @@
             "cacheVariables": {
                 "RUN_CPPCHECK": "ON",
                 "RUN_CLANG_TIDY": "ON",
+                "RUN_PVS_STUDIO": "ON",
                 "CMAKE_BUILD_TYPE": "Debug"
             }
         },
