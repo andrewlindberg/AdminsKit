@@ -98,8 +98,8 @@
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "clang-cl",
                 "CMAKE_CXX_COMPILER": "clang-cl",
-                "CMAKE_C_FLAGS_INIT": "-m32",
-                "CMAKE_CXX_FLAGS_INIT": "-m32"
+                "CMAKE_C_COMPILER_TARGET": "i386-pc-windows-msvc",
+                "CMAKE_CXX_COMPILER_TARGET": "i386-pc-windows-msvc"
             },
             "vendor": {
                 "microsoft.com/VisualStudioSettings/CMake/1.0": {
