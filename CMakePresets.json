@@ -95,10 +95,6 @@
             "name": "_win32-clang",
             "inherits": "_windows",
             "hidden": true,
-            "toolset": {
-                "value": "ClangCL",
-                "strategy": "set"
-            },
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "clang-cl",
                 "CMAKE_CXX_COMPILER": "clang-cl",
