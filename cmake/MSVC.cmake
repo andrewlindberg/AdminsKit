@@ -16,7 +16,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
     /Gy                 # Enable function-level linking
     /GF                 # Eliminate duplicate strings
     /Gd                 # Calling convention
-    /MP                 # Build with multiple processes
+    /MP${NCORES}        # Build with multiple processes
     /Gm-                # Minimal rebuild
     /nologo             # Suppress startup banner
     /Zc:wchar_t         # Parse wchar_t as a built-in type according to the C++ standard

@@ -2,6 +2,9 @@
 # CMake environment configuration
 #-------------------------------------------------------------------------------------------
 
+include(ProcessorCount)
+ProcessorCount(NCORES)
+
 if(APPLE)
     set(CMAKE_POLICY_DEFAULT_CMP0025 NEW)
 endif()

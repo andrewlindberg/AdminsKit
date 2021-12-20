@@ -1,7 +1,4 @@
 include(PVS-Studio)
-include(ProcessorCount)
-
-ProcessorCount(NCORES)
 
 #-------------------------------------------------------------------------------------------
 # Clang-Tidy
