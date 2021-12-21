@@ -1,17 +1,17 @@
 ﻿#-------------------------------------------------------------------------------------------
-# Compile with MSVC (Windows):
-#   cmake --preset win32-msvc-release && cmake --build --preset win32-msvc-release
+# Compile with MSVC:
+#   cmake --preset windows-msvc-release && cmake --build --preset windows-msvc-release
 #
-# Compile with Clang-CL (Windows):
-#   cmake --preset win32-clang-release && cmake --build --preset win32-clang-release
+# Compile with Clang-CL:
+#   cmake --preset windows-clang-release && cmake --build --preset windows-clang-release
 #
-# Compile with GCC (Linux):
+# Compile with GCC:
 #   cmake --preset linux-gcc-release && cmake --build --preset linux-gcc-release
 #
-# Compile with Clang (Linux):
+# Compile with Clang:
 #   cmake --preset linux-clang-release && cmake --build --preset linux-clang-release
 #
-# Compile with Intel C++ Compiler (Linux):
+# Compile with Intel C++ Compiler:
 #   cmake --preset linux-intel-release && cmake --build --preset linux-intel-release
 #-------------------------------------------------------------------------------------------
 
@@ -81,6 +81,7 @@ option(LINK_LIB_STDCPP         "Static linking with the libstdc++ library."     
 # Include additional CMake modules
 #-------------------------------------------------------------------------------------------
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 include(Environment)
 include(CodeAnalysis)
 
