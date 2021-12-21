@@ -52,6 +52,7 @@ option(ENABLE_EXCEPTIONS       "Enable exception handling table generation."    
 option(ENABLE_RTTI             "Enable RTTI support."                              OFF)
 option(RUN_CLANG_TIDY          "Run clang-tidy checks."                            OFF)
 option(RUN_PVS_STUDIO          "Run PVS-Studio analyzer."                          OFF)
+option(APPEND_GIT_HASH         "Append a Git commit hash to the project version."  OFF)
 
 # MSVC Options
 option(MSVC_CODE_ANALYSIS      "Enable MSVC code analysis."                        OFF)
@@ -87,7 +88,13 @@ include(CodeAnalysis)
 # Project build setup
 #-------------------------------------------------------------------------------------------
 
-# Add subdirectories to the build
+if(APPEND_GIT_HASH)
+    include(GetGitRevisionDescription)
+    get_git_head_revision(GIT_REFSPEC GIT_SHA1)
+    string(SUBSTRING "${GIT_SHA1}" 0 7 GIT_SHA1_TRUNC)
+    set(CMAKE_PROJECT_VERSION "${CMAKE_PROJECT_VERSION}-${GIT_SHA1_TRUNC}")
+endif()
+
 add_subdirectory("adminskit")
 
 if(WIN32)
