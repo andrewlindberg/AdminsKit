@@ -48,34 +48,35 @@ project(${PROJECT_NAME}
 #-------------------------------------------------------------------------------------------
 
 # Common options
-option(ENABLE_EXCEPTIONS       "Enable exception handling table generation."       OFF)
-option(ENABLE_RTTI             "Enable RTTI support."                              OFF)
-option(RUN_CLANG_TIDY          "Run clang-tidy checks."                            OFF)
-option(RUN_PVS_STUDIO          "Run PVS-Studio analyzer."                          OFF)
-option(APPEND_GIT_HASH         "Append a Git commit hash to the project version."  OFF)
+option(ENABLE_EXCEPTIONS       "Enable exception handling table generation."        OFF)
+option(ENABLE_RTTI             "Enable RTTI support."                               OFF)
+option(RUN_CLANG_TIDY          "Run clang-tidy checks."                             OFF)
+option(RUN_PVS_STUDIO          "Run PVS-Studio analyzer."                           OFF)
+option(APPEND_GIT_HASH         "Append a Git commit hash to the project version."   OFF)
+option(PUBLISH_ARTIFACTS       "Create a 'publish' directory with build artifacts." OFF)
 
 # MSVC Options
-option(MSVC_CODE_ANALYSIS      "Enable MSVC code analysis."                        OFF)
-option(MSVC_AUTO_PARALLELIZER  "Enable auto-parallelizer feature of the compiler." ON)
+option(MSVC_CODE_ANALYSIS      "Enable MSVC code analysis."                         OFF)
+option(MSVC_AUTO_PARALLELIZER  "Enable auto-parallelizer feature of the compiler."  ON)
 
 # GCC options
-option(LINKER_GOLD             "Use the Gold linker."                              ON)
-option(GCC_ANALYZER            "Run GCC static analysis (GCC v10.0 and newer)."    OFF)
+option(LINKER_GOLD             "Use the Gold linker."                               ON)
+option(GCC_ANALYZER            "Run GCC static analysis (GCC v10.0 and newer)."     OFF)
 
 # Clang options
-option(LINKER_LLD              "Use the LLD linker."                               ON)
+option(LINKER_LLD              "Use the LLD linker."                                ON)
 
 # Intel C++ options
-option(LINK_LIB_INTEL          "Static linking with the intel library."            OFF)
-option(INTEL_ALL_DIAG_GROUPS   "Enable all diagnostic groups."                     OFF)
+option(LINK_LIB_INTEL          "Static linking with the intel library."             OFF)
+option(INTEL_ALL_DIAG_GROUPS   "Enable all diagnostic groups."                      OFF)
 
 # GCC, Clang, Intel C++ options
-option(RUN_CPPCHECK            "Run cppcheck."                                     OFF)
-option(LINK_LIB_C              "Linking with the libc library."                    ON)
-option(LINK_LIB_M              "Linking with the libm library."                    ON)
-option(LINK_LIB_DL             "Linking with the libdl library."                   ON)
-option(LINK_LIB_GCC            "Static linking with the libgcc library."           ON)
-option(LINK_LIB_STDCPP         "Static linking with the libstdc++ library."        ON)
+option(RUN_CPPCHECK            "Run cppcheck."                                      OFF)
+option(LINK_LIB_C              "Linking with the libc library."                     ON)
+option(LINK_LIB_M              "Linking with the libm library."                     ON)
+option(LINK_LIB_DL             "Linking with the libdl library."                    ON)
+option(LINK_LIB_GCC            "Static linking with the libgcc library."            ON)
+option(LINK_LIB_STDCPP         "Static linking with the libstdc++ library."         ON)
 
 #-------------------------------------------------------------------------------------------
 # Include additional CMake modules

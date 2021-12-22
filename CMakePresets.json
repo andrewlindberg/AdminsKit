@@ -60,7 +60,7 @@
                     "copyBuildOutput": true,
                     "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}",
                     "copySourcesOptions": {
-                        "exclusionList": [ ".git", ".vs", "bin", "build", "out", "third_party" ]
+                        "exclusionList": [ ".git", ".vs", "bin", "build", "out" ]
                     }
                 }
             },
@@ -236,24 +236,22 @@
         {
             "name": "ci",
             "hidden": true,
+            "environment": {
+                "PUBLISH_DIR": "${sourceDir}/publish",
+                "BIN_OUTPUT_DIR": "$env{PUBLISH_DIR}/addons/amxmodx/modules"
+            },
             "cacheVariables": {
                 "CMAKE_C_COMPILER_WORKS": "TRUE",
                 "CMAKE_CXX_COMPILER_WORKS": "TRUE",
-                "APPEND_GIT_HASH": "ON"
+                "CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE": "$env{BIN_OUTPUT_DIR}",
+                "CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE": "$env{BIN_OUTPUT_DIR}",
+                "APPEND_GIT_HASH": "ON",
+                "PUBLISH_ARTIFACTS": "ON"
             }
         },
         {
             "name": "windows-ci",
-            "inherits": [ "ci", "windows-clang-release" ],
-            "generator": "Visual Studio 17 2022",
-            "architecture": {
-                "value": "Win32",
-                "strategy": "set"
-            },
-            "toolset": {
-                "value": "ClangCL",
-                "strategy": "set"
-            }
+            "inherits": [ "ci", "windows-clang-release" ]
         },
         {
             "name": "linux-ci",

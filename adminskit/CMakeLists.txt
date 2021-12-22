@@ -76,3 +76,18 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     "unlimited_choose_team"
     "whdh"
 )
+
+#-------------------------------------------------------------------------------------------
+# Publish build artifacts
+#-------------------------------------------------------------------------------------------
+
+if(PUBLISH_ARTIFACTS)
+    set(GITHUB_ENV "artifacts_zip_name=${INFO_PROJECT_NAME}_v${CMAKE_PROJECT_VERSION}_${CMAKE_SYSTEM_NAME}")
+    string(REGEX REPLACE "[ \t\r\n]" "" GITHUB_ENV "${GITHUB_ENV}")
+    file(WRITE "$ENV{PUBLISH_DIR}/github.env" "${GITHUB_ENV}")
+
+    add_custom_command(
+        TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_SOURCE_DIR}/third_party" "$ENV{PUBLISH_DIR}"
+    )
+endif()
