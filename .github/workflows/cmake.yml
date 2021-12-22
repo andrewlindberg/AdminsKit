@@ -1,0 +1,59 @@
+name: CMake
+
+env:
+  publish_dir: publish
+
+on:
+  push:
+    paths-ignore:
+    - 'third_party/**'
+    - '.gitattributes'
+    - '.gitignore'
+    - '**.md'
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.os == 'ubuntu-latest' && 'hun1er/ubuntu-gcc-clang:latest' || null }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        fetch-depth: 1
+
+    - name: Build
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        cmake --preset linux-ci
+        cmake --build --preset linux-ci --parallel $(nproc)
+
+    - name: Build
+      if: matrix.os == 'windows-latest'
+      run: |
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsamd64_x86.bat"
+        cmake --preset windows-ci
+        cmake --build --preset windows-ci
+      shell: cmd
+
+    - name: Import environment variables
+      run: cat "${{ env.publish_dir }}/github.env" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Publish
+      uses: actions/upload-artifact@v2
+      with:
+        retention-days: 7
+        name: ${{ env.artifacts_zip_name }}
+        path: |
+          ${{ env.publish_dir }}/
+          !${{ env.publish_dir }}/*.env
