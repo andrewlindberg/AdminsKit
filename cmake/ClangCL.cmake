@@ -140,8 +140,8 @@ target_link_options(${PROJECT_NAME} PRIVATE
     /MACHINE:X86          # Specify target platform
     /SUBSYSTEM:CONSOLE    # Specify subsystem
     /LARGEADDRESSAWARE:NO # Handle large addresses
-    /MANIFESTUAC:NO       # Embeds UAC information in manifest
-    /MANIFEST             # Create side-by-side assembly manifest
+    #/MANIFESTUAC:NO      # Embeds UAC information in manifest
+    /MANIFEST:NO          # Create side-by-side assembly manifest
     /NXCOMPAT             # Compatible with data execution prevention
     /NOLOGO               # Suppress startup banner
     /WX                   # Treat linker warnings as errors
