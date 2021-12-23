@@ -1,23 +1,39 @@
 #-------------------------------------------------------------------------------------------
-# Intel compiler options
+# Intel LLVM compiler options
 #-------------------------------------------------------------------------------------------
 
 # Diagnostic flags
 target_compile_options(${PROJECT_NAME} PRIVATE
-    -w3 -Wall -Wremarks -Wcheck -Weffc++
-    -Wuninitialized -Wdeprecated -Wpointer-arith
+    -Wall -Wextra -Wpedantic -Wdeprecated
+    -Wcast-align
+    -Wnull-dereference
+    -Wredundant-decls
+    -Wdouble-promotion
+    -Wold-style-cast
+    -Wcast-qual
+    -Wctor-dtor-privacy
+    -Woverloaded-virtual
+    -Wsign-promo
+    -Wfloat-equal
+    -Wconversion
+    -Wzero-as-null-pointer-constant
+    -Wextra-semi
 
     # Suppress warnings
-    -diag-disable=383,869,1011,1418,1419,2012,2013,2015,2021,2304,11074,11076
+    -Wno-sign-conversion
+    -Wno-non-virtual-dtor
 )
 
 # Compiler flags
 target_compile_options(${PROJECT_NAME} PRIVATE
-    -no-intel-extensions
-    $<$<COMPILE_LANGUAGE:CXX>:-fno-threadsafe-statics> -ffunction-sections -fdata-sections
+    -pipe $<$<COMPILE_LANGUAGE:CXX>:-fno-threadsafe-statics> -ffunction-sections -fdata-sections -pedantic
 )
 
 # Optional flags
+if(CLANG_ANALYZER)
+    target_compile_options(${PROJECT_NAME} PRIVATE --analyze --analyzer-output text)
+endif()
+
 if(NOT ENABLE_RTTI)
     target_compile_options(${PROJECT_NAME} PRIVATE -fno-rtti)
 endif()
@@ -31,7 +47,7 @@ endif()
 #-------------------------------------------------------------------------------------------
 
 # Linker flags
-target_link_options(${PROJECT_NAME} PRIVATE -no-intel-extensions
+target_link_options(${PROJECT_NAME} PRIVATE
     # Warnings
     -Wl,--warn-common
     -Wl,--warn-alternate-em
@@ -59,7 +75,11 @@ target_link_options(${PROJECT_NAME} PRIVATE -no-intel-extensions
 )
 
 # Libraries linking
-if(LINK_LIB_INTEL)
+if(NO_INTEL_LIB)
+    target_link_options(${PROJECT_NAME} PRIVATE -no-intel-lib)
+endif()
+
+if(LINK_LIB_INTEL AND NOT NO_INTEL_LIB)
     target_link_libraries(${PROJECT_NAME} PRIVATE -static-intel)
 endif()
 

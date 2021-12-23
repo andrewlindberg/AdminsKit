@@ -123,8 +123,8 @@
             "inherits": [ "linux" ],
             "hidden": true,
             "cacheVariables": {
-                "CMAKE_C_COMPILER": "icc",
-                "CMAKE_CXX_COMPILER": "icpc"
+                "CMAKE_C_COMPILER": "icx",
+                "CMAKE_CXX_COMPILER": "icpx"
             }
         },
         {

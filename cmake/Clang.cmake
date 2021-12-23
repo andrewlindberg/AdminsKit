@@ -30,6 +30,10 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 )
 
 # Optional flags
+if(CLANG_ANALYZER)
+    target_compile_options(${PROJECT_NAME} PRIVATE --analyze --analyzer-output text)
+endif()
+
 if(NOT ENABLE_RTTI)
     target_compile_options(${PROJECT_NAME} PRIVATE -fno-rtti)
 endif()

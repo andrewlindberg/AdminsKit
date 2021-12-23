@@ -67,8 +67,11 @@ option(GCC_ANALYZER            "Run GCC static analysis (GCC v10.0 and newer)." 
 option(LINKER_LLD              "Use the LLD linker."                                ON)
 
 # Intel C++ options
-option(LINK_LIB_INTEL          "Static linking with the intel library."             OFF)
-option(INTEL_ALL_DIAG_GROUPS   "Enable all diagnostic groups."                      OFF)
+option(LINK_LIB_INTEL          "Link Intel provided libraries statically"           ON)
+option(NO_INTEL_LIB            "Restrict linking of all Intel specific libraries."  OFF)
+
+# Clang and Intel C++ options
+option(CLANG_ANALYZER          "Run Clang static analyzer."                         OFF)
 
 # GCC, Clang, Intel C++ options
 option(RUN_CPPCHECK            "Run cppcheck."                                      OFF)
