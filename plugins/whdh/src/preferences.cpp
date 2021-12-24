@@ -32,8 +32,8 @@ using namespace whdh;
 namespace
 {
     namespace ak = adminskit;
-    constexpr auto ON = "ON";
-    constexpr auto OFF = "OFF";
+    constexpr auto ON = "ON"; //-V707
+    constexpr auto OFF = "OFF"; //-V707
 
     bool HasAccess(const PlayerBase* const player)
     {
