@@ -255,7 +255,7 @@
         },
         {
             "name": "linux-ci",
-            "inherits": [ "ci", "linux-clang-release" ]
+            "inherits": [ "ci", "linux-intel-release" ]
         }
     ],
     "buildPresets": [

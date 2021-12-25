@@ -18,7 +18,7 @@ jobs:
   build:
     name: Build ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    container: ${{ matrix.os == 'ubuntu-latest' && 'hun1er/ubuntu-gcc-clang:latest' || null }}
+    container: ${{ matrix.os == 'ubuntu-latest' && 'hun1er/ubuntu-gcc-clang-intel:latest' || null }}
 
     strategy:
       matrix:
@@ -34,6 +34,7 @@ jobs:
     - name: Build
       if: matrix.os == 'ubuntu-latest'
       run: |
+        . /opt/intel/oneapi/setvars.sh ia32
         cmake --preset linux-ci
         cmake --build --preset linux-ci --parallel $(nproc)
 
@@ -52,7 +53,6 @@ jobs:
     - name: Publish
       uses: actions/upload-artifact@v2
       with:
-        retention-days: 7
         name: ${{ env.artifacts_zip_name }}
         path: |
           ${{ env.publish_dir }}/
