@@ -1,5 +1,17 @@
 include(PVS-Studio)
 
+function(DisableCodeAnalysis _target)
+    set_target_properties("${_target}" PROPERTIES
+        C_CPPCHECK ""
+        CXX_CPPCHECK ""
+        C_CLANG_TIDY ""
+        CXX_CLANG_TIDY ""
+        VS_GLOBAL_RunCodeAnalysis false
+        VS_GLOBAL_EnableMicrosoftCodeAnalysis false
+        VS_GLOBAL_EnableClangTidyCodeAnalysis false
+    )
+endfunction()
+
 #-------------------------------------------------------------------------------------------
 # Clang-Tidy
 #-------------------------------------------------------------------------------------------
@@ -9,6 +21,10 @@ if(RUN_CLANG_TIDY)
     find_program(CLANG_TIDY_PROGRAM NAMES clang-tidy)
 
     if(CLANG_TIDY_PROGRAM)
+        if(MSVC AND ENABLE_EXCEPTIONS)
+            set(CLANG_TIDY_PROGRAM "${CLANG_TIDY_PROGRAM};--extra-arg=/EHsc")
+        endif()
+
         set(CMAKE_C_CLANG_TIDY ${CLANG_TIDY_PROGRAM})
         set(CMAKE_CXX_CLANG_TIDY ${CLANG_TIDY_PROGRAM})
     else()
