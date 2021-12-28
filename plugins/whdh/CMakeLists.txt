@@ -19,6 +19,7 @@ target_sources(${PROJECT_NAME} INTERFACE
     "src/marker.h"
     "src/plugin.h"
     "src/preferences.h"
+    "src/preferences_bin.h"
     "src/resources.h"
 
     # Sources
@@ -29,5 +30,6 @@ target_sources(${PROJECT_NAME} INTERFACE
     "src/marker.cpp"
     "src/plugin.cpp"
     "src/preferences.cpp"
+    "src/preferences_bin.cpp"
     "src/resources.cpp"
 )

@@ -32,6 +32,7 @@ BraceWrapping:
   AfterStruct: true
   AfterUnion: true
   BeforeElse: true
+  BeforeCatch: true
   BeforeWhile: true
 # The way to wrap binary operators.
 BreakBeforeBinaryOperators: None

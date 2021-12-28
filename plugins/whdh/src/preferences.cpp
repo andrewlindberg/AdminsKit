@@ -17,15 +17,19 @@
 
 #include "preferences.h"
 #include <core/amxx_access.h>
+#include <core/console.h>
 #include <core/messages.h>
 #include <core/strings.h>
 #include <cssdk/public/utils.h>
+#include <metamod/engine.h>
 #include <whdh/cvars.h>
 #include <cassert>
+#include <exception>
 #include <utility>
 
 using namespace core;
 using namespace cssdk;
+using namespace metamod;
 using namespace mhooks;
 using namespace whdh;
 
@@ -91,11 +95,22 @@ namespace
 
 namespace whdh
 {
-    Preferences::Preferences(ak::Localization&& localization, std::shared_ptr<Resources> resources)
-        : localization_(std::move(localization)), resources_(std::move(resources))
+    Preferences::Preferences(PreferencesBin&& bin, ak::Localization&& localization, std::shared_ptr<Resources> resources)
+        : bin_(std::move(bin)), localization_(std::move(localization)), resources_(std::move(resources))
     {
         hooks_.emplace_back(MHookReGamePlayerPreThink({DELEGATE_ARG<&Preferences::OnPlayerPreThink>, this})->Unique());
-        hooks_.emplace_back(MHookReHldsClientConnected({DELEGATE_ARG<&Preferences::OnClientConnected>, this})->Unique());
+        hooks_.emplace_back(MHookAmxxClientAuthorized({DELEGATE_ARG<&Preferences::OnClientAuthorized>, this})->Unique());
+        hooks_.emplace_back(MHookGameDllServerDeactivate({DELEGATE_ARG<&Preferences::OnServerDeactivatePost>, this}, true)->Unique());
+
+        try {
+            bin_.Deserialize();
+        }
+        catch (const std::exception& ex) {
+            console::Error("Failed to deserialize WHDH user settings: %s", ex.what());
+        }
+        catch (...) {
+            console::Error("Failed to deserialize WHDH user settings. Unknown error.");
+        }
     }
 
     void Preferences::ShowMenu(Edict* const client)
@@ -141,6 +156,7 @@ namespace whdh
             return;
         }
 
+        bin_.Save(engine::GetPlayerAuthId(client), operator[](client));
         ShowMenu(client);
     }
 
@@ -162,14 +178,24 @@ namespace whdh
         }
     }
 
-    void Preferences::OnClientConnected(const ReHldsClientConnectedMChain& chain, IGameClient* const client)
+    void Preferences::OnClientAuthorized(const AmxxClientAuthorizedMChain& chain, const int index, const char* const auth_id)
     {
-        chain.CallNext(client);
+        preferences_[index] = bin_.Load(auth_id);
+        chain.CallNext(index, auth_id);
+    }
 
-        if (client) {
-            if (const auto client_index = client->GetId() + 1; IsClient(client_index)) {
-                preferences_[client_index].Reset();
-            }
+    void Preferences::OnServerDeactivatePost(const GameDllServerDeactivateMChain& chain)
+    {
+        chain.CallNext();
+
+        try {
+            bin_.Serialize();
+        }
+        catch (const std::exception& ex) {
+            console::Error("Failed to serialize WHDH user settings: %s", ex.what());
+        }
+        catch (...) {
+            console::Error("Failed to serialize WHDH user settings. Unknown error.");
         }
     }
 }

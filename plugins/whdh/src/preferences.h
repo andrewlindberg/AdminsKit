@@ -17,11 +17,13 @@
 
 #pragma once
 
+#include "preferences_bin.h"
 #include "resources.h"
 #include <adminskit/localization.h>
 #include <core/menu.h>
 #include <core/type_conversion.h>
-#include <cssdk/public/os_defs.h>
+#include <mhooks/amxx.h>
+#include <mhooks/metamod.h>
 #include <mhooks/reapi.h>
 #include <array>
 #include <memory>
@@ -29,53 +31,9 @@
 
 namespace whdh
 {
-    enum class Visibility
-    {
-        Off,
-        Opponents,
-        Teammates,
-        OpponentsAndTeammates
-    };
-
-    struct UserPreferences
-    {
-        Visibility visibility{};
-        bool marker{};
-        bool lines{};
-        bool boxes{};
-
-        void Reset()
-        {
-            visibility = Visibility::Opponents;
-            marker = lines = true;
-            boxes = false;
-        }
-    };
-
-#ifdef INTEL_COMPILER
-#pragma warning(push)
-#pragma warning(disable : 2047)
-#endif
-
-    inline Visibility& operator++(Visibility& visibility)
-    {
-        if (visibility < Visibility::Off) {
-            return visibility = static_cast<Visibility>(static_cast<int>(Visibility::Off) + 1);
-        }
-
-        if (visibility >= Visibility::OpponentsAndTeammates) {
-            return visibility = Visibility::Off;
-        }
-
-        return visibility = static_cast<Visibility>(static_cast<int>(visibility) + 1);
-    }
-
-#ifdef INTEL_COMPILER
-#pragma warning(pop)
-#endif
-
     class Preferences final
     {
+        PreferencesBin bin_;
         const adminskit::Localization localization_;
         const std::shared_ptr<Resources> resources_;
         std::vector<std::unique_ptr<mhooks::MHook>> hooks_{};
@@ -83,7 +41,7 @@ namespace whdh
         core::Menu menu_{{core::DELEGATE_ARG<&Preferences::MenuHandler>, this}};
 
     public:
-        Preferences(adminskit::Localization&& localization, std::shared_ptr<Resources> resources);
+        Preferences(PreferencesBin&& bin, adminskit::Localization&& localization, std::shared_ptr<Resources> resources);
         ~Preferences() = default;
 
         Preferences(Preferences&&) = delete;
@@ -126,6 +84,7 @@ namespace whdh
         void ShowMenu(cssdk::Edict* client);
         void MenuHandler(cssdk::Edict* client, int selected_item);
         void OnPlayerPreThink(const ReGamePlayerPreThinkMChain& chain, cssdk::PlayerBase* player);
-        void OnClientConnected(const ReHldsClientConnectedMChain& chain, cssdk::IGameClient* client);
+        void OnClientAuthorized(const AmxxClientAuthorizedMChain& chain, int index, const char* auth_id);
+        void OnServerDeactivatePost(const GameDllServerDeactivateMChain& chain);
     };
 }

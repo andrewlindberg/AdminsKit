@@ -13,3 +13,6 @@
 [submodule "libs/mhooks"]
 	path = libs/mhooks
 	url = https://gitlab.com/goldsrc-sdk/mhooks.git
+[submodule "libs/cista"]
+	path = libs/cista
+	url = https://github.com/felixguendling/cista

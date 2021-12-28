@@ -52,6 +52,7 @@ set(META_DETACH "__OnMetaDetach")    # void OnMetaDetach();
 #-------------------------------------------------------------------------------------------
 
 # Add subdirectories
+add_subdirectory("${CMAKE_SOURCE_DIR}/libs/cista" "cista")
 add_subdirectory("${CMAKE_SOURCE_DIR}/libs/cssdk" "cssdk")
 add_subdirectory("${CMAKE_SOURCE_DIR}/libs/metamod" "metamod")
 add_subdirectory("${CMAKE_SOURCE_DIR}/libs/amxx" "amxx")
@@ -63,13 +64,22 @@ add_subdirectory("${CMAKE_SOURCE_DIR}/plugins/server_stats" "server_stats")
 add_subdirectory("${CMAKE_SOURCE_DIR}/plugins/unlimited_choose_team" "unlimited_choose_team")
 add_subdirectory("${CMAKE_SOURCE_DIR}/plugins/whdh" "whdh")
 
+# Disable code analysis for specified targets
+DisableCodeAnalysis("cista")
+
+# Add compile flags for specified files
+if(MSVC AND "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+    set_source_files_properties(
+        "${CMAKE_SOURCE_DIR}/plugins/whdh/src/preferences_bin.cpp"
+        PROPERTIES
+        COMPILE_FLAGS "/wd4244 /wd6011 /wd6031 /wd6262"
+    )
+endif()
+
 # Link dependencies
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    "cssdk"
-    "metamod"
-    "amxx"
-    "core"
-    "mhooks"
+    "cista"
+    "cssdk" "metamod" "amxx" "core" "mhooks"
     "admin_free_look"
     "invisible_spectator"
     "server_stats"

@@ -40,6 +40,7 @@ namespace whdh::cvars
     inline const cssdk::CVar* cvar_enable{};
     inline const cssdk::CVar* cvar_access{};
     inline const cssdk::CVar* cvar_spec_only{};
+    inline const cssdk::CVar* cvar_save_prefs{};
     inline const cssdk::CVar* cvar_beam_sprite{};
     inline const cssdk::CVar* cvar_marker_sprite{};
     inline const cssdk::CVar* cvar_beam_update_rate{};
@@ -64,6 +65,11 @@ namespace whdh::cvars
     [[nodiscard]] inline bool SpecOnly()
     {
         return core::cvar::GetValue<bool>(cvar_spec_only);
+    }
+
+    [[nodiscard]] inline float SavePrefs()
+    {
+        return core::cvar::GetValue<float>(cvar_save_prefs);
     }
 
     [[nodiscard]] inline const char* BeamSprite()

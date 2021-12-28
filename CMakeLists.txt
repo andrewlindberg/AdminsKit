@@ -48,7 +48,7 @@ project(${PROJECT_NAME}
 #-------------------------------------------------------------------------------------------
 
 # Common options
-option(ENABLE_EXCEPTIONS       "Enable exception handling table generation."        OFF)
+option(ENABLE_EXCEPTIONS       "Enable exception handling table generation."        ON)
 option(ENABLE_RTTI             "Enable RTTI support."                               OFF)
 option(RUN_CLANG_TIDY          "Run clang-tidy checks."                             OFF)
 option(RUN_PVS_STUDIO          "Run PVS-Studio analyzer."                           OFF)
@@ -123,7 +123,7 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 
     # Platform Windows
     $<$<PLATFORM_ID:Windows>:
-        WIN32 _WINDOWS _USRDLL _WINDLL _MBCS
+        WIN32 _WINDOWS _USRDLL _WINDLL _MBCS NOMINMAX
     >
 
     # Platform Linux, Darwin

@@ -113,6 +113,7 @@ namespace whdh::cvars
         cvar_enable = cvar::Register("whdh_enable", "0");
         cvar_access = cvar::Register("whdh_access", detail::DEFAULT_ACCESS_FLAGS);
         cvar_spec_only = cvar::Register("whdh_spec_only", "0");
+        cvar_save_prefs = cvar::Register("whdh_save_prefs", "7");
 
         cvar_beam_sprite = cvar::Register("whdh_beam_sprite", "sprites/laserbeam.spr");
         cvar_marker_sprite = cvar::Register("whdh_marker_sprite", "sprites/whdh.spr");
@@ -127,9 +128,9 @@ namespace whdh::cvars
         cvar_line_color_ct = cvar::Register("whdh_line_color_ct", "0 0 150");
         cvar_line_color_hit = cvar::Register("whdh_line_color_hit", "255 0 255");
 
-        const auto registered = cvar_enable && cvar_access && cvar_spec_only && cvar_beam_sprite && cvar_marker_sprite &&
-            cvar_beam_update_rate && cvar_box_color && cvar_box_color_t && cvar_box_color_ct && cvar_box_color_hit &&
-            cvar_line_color_t && cvar_line_color_ct && cvar_line_color_hit;
+        const auto registered = cvar_enable && cvar_access && cvar_spec_only && cvar_save_prefs && cvar_beam_sprite &&
+            cvar_marker_sprite && cvar_beam_update_rate && cvar_box_color && cvar_box_color_t && cvar_box_color_ct &&
+            cvar_box_color_hit && cvar_line_color_t && cvar_line_color_ct && cvar_line_color_hit;
 
         if (static auto cvar_change_hooked = false; registered && !cvar_change_hooked) {
             MHookCVarChange(cvar_access, DELEGATE_ARG<OnAccessCvarChange>);
