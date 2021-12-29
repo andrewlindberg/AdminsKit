@@ -68,7 +68,7 @@ option(LINKER_LLD              "Use the LLD linker."                            
 
 # Intel C++ options
 option(LINK_LIB_INTEL          "Link Intel provided libraries statically"           ON)
-option(NO_INTEL_LIB            "Restrict linking of all Intel specific libraries."  OFF)
+option(NO_INTEL_LIB            "Restrict linking of all Intel specific libraries."  ON)
 
 # Clang and Intel C++ options
 option(CLANG_ANALYZER          "Run Clang static analyzer."                         OFF)
