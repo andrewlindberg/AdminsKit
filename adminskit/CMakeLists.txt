@@ -29,23 +29,26 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 set(AMXX_USE_METAMOD ON)
 
 # Uncomment the functions you want to use in your code and specify the desired function names
-set(AMXX_QUERY "Main")                                     # void OnAmxxQuery();
-set(AMXX_ATTACH "__OnAmxxAttach")                          # AmxxStatus OnAmxxAttach();
-#set(AMXX_DETACH "__OnAmxxDetach")                         # void OnAmxxDetach();
-#set(AMXX_CHECK_GAME "__OnAmxxCheckGame")                  # AmxxGameStatus OnAmxxCheckGame(const char* game);
-#set(AMXX_PLUGINS_LOADED "__OnAmxxPluginsLoaded")          # void OnAmxxPluginsLoaded();
-#set(AMXX_PLUGINS_UNLOADED "__OnAmxxPluginsUnloaded")      # void OnAmxxPluginsUnloaded();
-#set(AMXX_PLUGINS_UNLOADING "__OnAmxxPluginsUnloading")    # void OnAmxxPluginsUnloading();
+set(AMXX_QUERY "Main")                                     # void OnAmxxQuery()
+set(AMXX_ATTACH "__OnAmxxAttach")                          # AmxxStatus OnAmxxAttach()
+#set(AMXX_DETACH "__OnAmxxDetach")                         # void OnAmxxDetach()
+#set(AMXX_CHECK_GAME "__OnAmxxCheckGame")                  # AmxxGameStatus OnAmxxCheckGame(const char* game)
+#set(AMXX_PLUGINS_LOADED "__OnAmxxPluginsLoaded")          # void OnAmxxPluginsLoaded()
+#set(AMXX_PLUGINS_UNLOADED "__OnAmxxPluginsUnloaded")      # void OnAmxxPluginsUnloaded()
+#set(AMXX_PLUGINS_UNLOADING "__OnAmxxPluginsUnloading")    # void OnAmxxPluginsUnloading()
 
 #-------------------------------------------------------------------------------------------
 # Metamod configuration
 #-------------------------------------------------------------------------------------------
 
+# Flags for plug-in to indicate when it can be loaded/unloaded
+set(META_PLUGIN_UNLOADABLE "Never")
+
 # Uncomment the functions you want to use in your code and specify the desired function names
-#set(META_INIT "__OnMetaInit")       # void OnMetaInit();
-#set(META_QUERY "__OnMetaQuery")     # void OnMetaQuery();
-#set(META_ATTACH "__OnMetaAttach")   # MetaStatus OnMetaAttach();
-set(META_DETACH "__OnMetaDetach")    # void OnMetaDetach();
+#set(META_INIT "__OnMetaInit")       # void OnMetaInit()
+#set(META_QUERY "__OnMetaQuery")     # void OnMetaQuery()
+#set(META_ATTACH "__OnMetaAttach")   # MetaStatus OnMetaAttach()
+set(META_DETACH "__OnMetaDetach")    # void OnMetaDetach()
 
 #-------------------------------------------------------------------------------------------
 # Add dependencies to the build
