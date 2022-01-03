@@ -1,5 +1,5 @@
-﻿# Minimum required version of CMake for a project
-cmake_minimum_required(VERSION 3.20)
+# Minimum required version of CMake for a project
+cmake_minimum_required(VERSION 3.21)
 
 # Add a library target to be built from the source files
 add_library(${PROJECT_NAME} SHARED
