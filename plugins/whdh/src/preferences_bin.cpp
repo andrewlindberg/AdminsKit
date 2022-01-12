@@ -17,6 +17,7 @@
 
 #include "preferences_bin.h"
 #include <cista/serialization.h>
+#include <core/system.h>
 #include <whdh/cvars.h>
 #include <cassert>
 #include <ctime>
@@ -43,29 +44,6 @@ namespace
     {
         return static_cast<int>(std::time(nullptr));
     }
-
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN // NOLINT(clang-diagnostic-unused-macros)
-#include <Windows.h>
-
-    [[nodiscard]] std::string StrError(const DWORD error_code)
-    {
-        TCHAR buffer[512]{};
-
-        FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, nullptr, error_code,
-                      MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US), buffer, sizeof buffer - 1, nullptr);
-
-        return std::string{buffer};
-    }
-#else
-#include <cerrno>
-#include <cstring>
-
-    [[nodiscard]] std::string StrError(const int error_code)
-    {
-        return std::string{std::strerror(error_code)}; // NOLINT(concurrency-mt-unsafe)
-    }
-#endif
 }
 
 namespace whdh
@@ -118,9 +96,9 @@ namespace whdh
             count != size) {
 #ifdef _WIN32
             const auto error_code = GetLastError();
-            except_msg_ = str::Format("Failed to read file. Error %lu: %s", error_code, StrError(error_code));
+            except_msg_ = str::Format("Failed to read file. Error %lu: %s", error_code, system::StrError(error_code));
 #else
-            except_msg_ = str::Format("Failed to read file. Error %d: %s", errno, StrError(errno));
+            except_msg_ = str::Format("Failed to read file. Error %d: %s", errno, system::StrError(errno));
 #endif
             throw std::runtime_error{except_msg_};
         }
@@ -195,7 +173,7 @@ namespace whdh
         }
 
         if (error_code != 0) {
-            const auto& error = StrError(error_code);
+            const auto& error = system::StrError(error_code);
             except_msg_ = str::Format(R"(Could not open "%s". Mode: "%s". Error %d: %s)",
                                       filepath.c_str(), mode, error_code, error.c_str());
 
@@ -220,7 +198,7 @@ namespace whdh
 
         if (stream == nullptr && errno != 2) {
             except_msg_ = str::Format(R"(Could not open "%s". Mode: "%s". Error %d: %s)",
-                                      filepath.c_str(), mode, errno, StrError(errno)); // NOLINT(concurrency-mt-unsafe)
+                                      filepath.c_str(), mode, errno, system::StrError(errno)); // NOLINT(concurrency-mt-unsafe)
 
             throw std::runtime_error{except_msg_};
         }
