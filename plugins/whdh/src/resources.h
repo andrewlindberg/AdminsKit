@@ -93,7 +93,7 @@ namespace whdh
         }
 
     private:
-        cssdk::GameRules* OnInstallGameRules(const ReGameInstallGameRulesMChain& chain);
+        cssdk::GameRules* OnInstallGameRules(const ReGameRulesInstallGameRulesMChain& chain);
         int OnDispatchSpawn(const GameDllDispatchSpawnMChain& chain, cssdk::Edict* entity);
         void OnServerDeactivatePost(const GameDllServerDeactivateMChain& chain);
     };

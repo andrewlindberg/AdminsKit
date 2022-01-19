@@ -30,7 +30,7 @@ namespace whdh
     Resources::Resources()
     {
         install_game_rules_hook_ =
-            MHookReGameInstallGameRules(
+            MHookReGameRulesInstallGameRules(
                 {DELEGATE_ARG<&Resources::OnInstallGameRules>, this})
                 ->Unique();
 
@@ -45,7 +45,7 @@ namespace whdh
                 ->Unique();
     }
 
-    GameRules* Resources::OnInstallGameRules(const ReGameInstallGameRulesMChain& chain)
+    GameRules* Resources::OnInstallGameRules(const ReGameRulesInstallGameRulesMChain& chain)
     {
         beam_sprite_index_ = marker_sprite_index_ = INVALID_INDEX;
 

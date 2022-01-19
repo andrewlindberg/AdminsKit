@@ -28,7 +28,7 @@ using namespace metamod;
 
 namespace
 {
-    GameRules* OnInstallGameRules(const ReGameInstallGameRulesMChain& chain)
+    GameRules* OnInstallGameRules(const ReGameRulesInstallGameRulesMChain& chain)
     {
         const auto config = str::BuildPathAmxxConfigs("adminskit.cfg");
         auto exec_config = str::Format("exec \"%s\"\n", config);
@@ -48,7 +48,7 @@ namespace adminskit
         const auto status = cvars::Register() ? chain.CallNext() : amxx::Status::Failed;
 
         if (status == amxx::Status::Ok) {
-            MHookReGameInstallGameRules(DELEGATE_ARG<OnInstallGameRules>, HookChainPriority::High);
+            MHookReGameRulesInstallGameRules(DELEGATE_ARG<OnInstallGameRules>, HookChainPriority::High);
         }
 
         return status;

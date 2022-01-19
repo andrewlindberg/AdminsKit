@@ -37,7 +37,7 @@ namespace admin_free_look
         Plugin& operator=(const Plugin&) = delete;
 
     private:
-        static cssdk::GameRules* OnInstallGameRules(const ReGameInstallGameRulesMChain& chain);
+        static cssdk::GameRules* OnInstallGameRules(const ReGameRulesInstallGameRulesMChain& chain);
         static int OnGetForceCamera(const ReGameGetForceCameraMChain& chain, cssdk::PlayerBase* observer);
     };
 }

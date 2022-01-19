@@ -38,11 +38,11 @@ namespace admin_free_look
             g_game_rules = game_rules->CsGameRules();
         }
 
-        hooks_.emplace_back(MHookReGameInstallGameRules(DELEGATE_ARG<&Plugin::OnInstallGameRules>)->Unique());
+        hooks_.emplace_back(MHookReGameRulesInstallGameRules(DELEGATE_ARG<&Plugin::OnInstallGameRules>)->Unique());
         hooks_.emplace_back(MHookReGameGetForceCamera(DELEGATE_ARG<&Plugin::OnGetForceCamera>)->Unique());
     }
 
-    GameRules* Plugin::OnInstallGameRules(const ReGameInstallGameRulesMChain& chain)
+    GameRules* Plugin::OnInstallGameRules(const ReGameRulesInstallGameRulesMChain& chain)
     {
         auto* const rules = chain.CallNext();
 
