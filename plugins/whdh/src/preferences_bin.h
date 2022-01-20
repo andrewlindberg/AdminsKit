@@ -40,11 +40,12 @@ namespace whdh
         bool marker{true};
         bool lines{true};
         bool boxes{false};
+        bool transp_entities{false};
         int timestamp{0};
 
         [[nodiscard]] bool IsDefault() const
         {
-            return visibility == Visibility::Opponents && marker && lines && !boxes;
+            return visibility == Visibility::Opponents && marker && lines && !boxes && !transp_entities;
         }
     };
 

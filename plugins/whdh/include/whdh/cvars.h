@@ -41,6 +41,7 @@ namespace whdh::cvars
     inline const cssdk::CVar* cvar_access{};
     inline const cssdk::CVar* cvar_spec_only{};
     inline const cssdk::CVar* cvar_save_prefs{};
+    inline const cssdk::CVar* cvar_entity_transp{};
     inline const cssdk::CVar* cvar_beam_sprite{};
     inline const cssdk::CVar* cvar_marker_sprite{};
     inline const cssdk::CVar* cvar_beam_update_rate{};
@@ -70,6 +71,11 @@ namespace whdh::cvars
     [[nodiscard]] inline float SavePrefs()
     {
         return core::cvar::GetValue<float>(cvar_save_prefs);
+    }
+
+    [[nodiscard]] inline float EntityTransparency()
+    {
+        return core::cvar::GetValue<float>(cvar_entity_transp);
     }
 
     [[nodiscard]] inline const char* BeamSprite()

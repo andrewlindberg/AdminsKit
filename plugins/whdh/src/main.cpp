@@ -42,7 +42,7 @@ namespace
             const auto data = std::make_shared<Data>();
             const auto resources = std::make_shared<Resources>();
             const auto preferences = std::make_shared<Preferences>(PreferencesBin{}, adminskit::Localization{"whdh.txt"}, resources);
-            g_plugin = new Plugin{{data, resources, preferences}, {data, resources, preferences}, data, resources};
+            g_plugin = new Plugin{{data, resources, preferences}, {data, resources, preferences}, data, resources, preferences};
         }
     }
 }

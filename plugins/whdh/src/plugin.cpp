@@ -40,8 +40,10 @@ namespace
 
 namespace whdh
 {
-    Plugin::Plugin(Beams beams, Marker marker, std::shared_ptr<Data> data, std::shared_ptr<Resources> resources)
-        : beams_(std::move(beams)), marker_(std::move(marker)), data_(std::move(data)), resources_(std::move(resources))
+    Plugin::Plugin(Beams beams, Marker marker, std::shared_ptr<Data> data,
+                   std::shared_ptr<Resources> resources, std::shared_ptr<Preferences> preferences)
+        : beams_(std::move(beams)), marker_(std::move(marker)), data_(std::move(data)),
+          resources_(std::move(resources)), preferences_(std::move(preferences))
     {
         assert(data_ != nullptr);
         assert(resources_ != nullptr);
@@ -50,6 +52,12 @@ namespace whdh
             MHookGameDllAddToFullPack(
                 {DELEGATE_ARG<&Plugin::OnAddToFullPack>, this},
                 false, HookChainPriority::Normal, false)
+                ->Unique());
+
+        hooks_.emplace_back(
+            MHookGameDllAddToFullPack(
+                {DELEGATE_ARG<&Plugin::OnAddToFullPackPost>, this},
+                true, HookChainPriority::Normal, false)
                 ->Unique());
 
         hooks_.emplace_back(
@@ -133,6 +141,48 @@ namespace whdh
         }
 
         return marker_.Draw(state, entity_index, entity, host, host_index, host_flags, player, set);
+    }
+
+    qboolean Plugin::OnAddToFullPackPost(const GameDllAddToFullPackMChain& chain, EntityState* const state,
+                                         const int entity_index, Edict* const entity, Edict* const host,
+                                         const int host_flags, const qboolean player, unsigned char* const set) const
+    {
+        const auto result = chain.CallNext(state, entity_index, entity, host, host_flags, player, set);
+        const auto transparency = cvars::EntityTransparency();
+
+        if (player || entity == host || transparency <= 0.F || !state ||
+            !IsValidEntity(host) || IsPlayerAlive(host) ||
+            !IsValidEntity(entity) || Marker::IsMarker(entity)) {
+            return result;
+        }
+
+        if (const auto host_index = type_conversion::IndexOfEntity(host);
+            !IsClient(host_index) || !HasAccess(host_index) || !(*preferences_)[host_index].transp_entities) {
+            return result;
+        }
+
+        if (state->render_mode == Rendering::Normal) {
+            // NOLINTNEXTLINE(clang-diagnostic-switch-enum)
+            switch (cssdk::EntityPrivateData<EntityBase>(entity)->GetClassify()) {
+            case Classify::Player:
+            case Classify::HumanPassive:
+            case Classify::HumanMilitary:
+            case Classify::AlienMilitary:
+            case Classify::AlienPassive:
+            case Classify::AlienMonster:
+            case Classify::AlienPrey:
+            case Classify::AlienPredator:
+            case Classify::PlayerAlly:
+                return result;
+
+            default:
+                state->render_mode = Rendering::TransTexture;
+                state->render_amount = std::clamp(255 - static_cast<int>(2.55F * transparency), 0, 255);
+                break;
+            }
+        }
+
+        return result;
     }
 
     void Plugin::OnPlayerPreThink(const ReGamePlayerPreThinkMChain& chain, PlayerBase* const player)

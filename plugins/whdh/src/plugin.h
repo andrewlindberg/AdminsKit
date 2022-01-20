@@ -35,10 +35,11 @@ namespace whdh
         Marker marker_;
         std::shared_ptr<Data> data_;
         std::shared_ptr<Resources> resources_;
+        std::shared_ptr<Preferences> preferences_;
         std::vector<std::unique_ptr<mhooks::MHook>> hooks_{};
 
     public:
-        Plugin(Beams beams, Marker marker, std::shared_ptr<Data> data, std::shared_ptr<Resources> resources);
+        Plugin(Beams beams, Marker marker, std::shared_ptr<Data> data, std::shared_ptr<Resources> resources, std::shared_ptr<Preferences> preferences);
         ~Plugin();
 
         Plugin(Plugin&&) = delete;
@@ -50,10 +51,15 @@ namespace whdh
     private:
         void OnResourcesNotice() const;
 
-        ATTR_OPTIMIZE_HOT cssdk::qboolean
-        OnAddToFullPack(const GameDllAddToFullPackMChain& chain, cssdk::EntityState* state, int entity_index,
-                        cssdk::Edict* entity, cssdk::Edict* host, int host_flags, cssdk::qboolean player,
-                        unsigned char* set) const;
+        ATTR_OPTIMIZE_HOT cssdk::qboolean OnAddToFullPack(const GameDllAddToFullPackMChain& chain,
+                                                          cssdk::EntityState* state, int entity_index,
+                                                          cssdk::Edict* entity, cssdk::Edict* host, int host_flags,
+                                                          cssdk::qboolean player, unsigned char* set) const;
+
+        ATTR_OPTIMIZE_HOT cssdk::qboolean OnAddToFullPackPost(const GameDllAddToFullPackMChain& chain,
+                                                              cssdk::EntityState* state, int entity_index,
+                                                              cssdk::Edict* entity, cssdk::Edict* host, int host_flags,
+                                                              cssdk::qboolean player, unsigned char* set) const;
 
         void OnPlayerPreThink(const ReGamePlayerPreThinkMChain& chain, cssdk::PlayerBase* player);
         void OnPlayerSpawn(const ReGamePlayerSpawnMChain& chain, cssdk::PlayerBase* player) const;

@@ -87,6 +87,12 @@ namespace
                            localization.GetText(preferences.boxes ? ON : OFF, client));
     }
 
+    auto FmtMenuItemTranspEnt(Edict* const client, const UserPreferences& preferences, const ak::Localization& localization)
+    {
+        return str::Format("%s %s", localization.GetText("TRANSP_ENTITIES", client),
+                           localization.GetText(preferences.transp_entities ? ON : OFF, client));
+    }
+
     auto FmtMenuItemExit(Edict* const client, const ak::Localization& localization)
     {
         return localization.GetText("EXIT", client);
@@ -118,15 +124,16 @@ namespace whdh
         assert(IsValidEntity(client));
 
         const auto& preferences = operator[](client);
-        const auto& text = str::Format("%s\n\n1. %s\n2. %s\n3. %s\n4. %s\n\n0. %s\n",
+        const auto& text = str::Format("%s\n\n1. %s\n2. %s\n3. %s\n4. %s\n5. %s\n\n0. %s\n",
                                        FmtMenuTitle(client, localization_),
                                        FmtMenuItemVisibility(client, preferences, localization_),
                                        FmtMenuItemMarker(client, preferences, localization_),
                                        FmtMenuItemLines(client, preferences, localization_),
                                        FmtMenuItemBoxes(client, preferences, localization_),
+                                       FmtMenuItemTranspEnt(client, preferences, localization_),
                                        FmtMenuItemExit(client, localization_));
 
-        menu_.Show(client, MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_0, text);
+        menu_.Show(client, MENU_KEY_1 | MENU_KEY_2 | MENU_KEY_3 | MENU_KEY_4 | MENU_KEY_5 | MENU_KEY_0, text);
     }
 
     void Preferences::MenuHandler(Edict* const client, const int selected_item)
@@ -150,6 +157,10 @@ namespace whdh
 
         case 4:
             operator[](client).boxes ^= true;
+            break;
+
+        case 5:
+            operator[](client).transp_entities ^= true;
             break;
 
         default:
